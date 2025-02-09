@@ -154,22 +154,116 @@ if (birthYear2 < 2000) {
 }
 console.log(century)
 
+// type conversion 02-018
+const inputYear = '1999';
+console.log(Number(inputYear) + 18, inputYear);
+
+console.log(Number('Bemmmgr'));     //NaN -- type: invaild number
+console.log(typeof (NaN));
+
+console.log(String(23), 23);
+
+//type coercion(类型强制)
+console.log("I'm " + 25 + " years old..");      //numbers converted to string
+console.log('26' + '26' + 8);           //26268
+console.log('98' - '18' + 5);           //85
+console.log('25' / '2');                //12.5
+console.log(2 + 3 + 4 + '5')            //95
 
 
+/*
+    truthy & falsy values 02019
+    5 falsy values: 0, '', undefined, null, NaN;
+*/
+console.log(Boolean(0));
+console.log(Boolean(undefined));
+console.log(Boolean(null));
+console.log(Boolean('anc'));
+console.log(Boolean({}));
+console.log(Boolean(''));
+
+const money = 0;
+if (money) {
+    console.log("Don't spend it at all!")
+} else {
+    console.log("You should get a job!")
+}
+
+let height;
+if (height) {
+    console.log("yay!! Height is defined!")
+} else {
+    console.log("No, Its not..")
+}
+
+// equality operators
+// const age3 = '20';
+// if (age3 === 20) console.log('u r qualified! This is strict');
+// if (age3 == 20) console.log('This is loose');
+
+// const favorite = prompt('Whats ur favorite color??');
+// console.log(favorite);
+
+// if (favorite == 3123) {
+//     console.log('Cool! This is a great number!');
+// } else {
+//     console.log('u need a different number~');
+// }
+
+// if (favorite !== 98) console.log('Why not 98?');
 
 
+// Logical operators 02022
+const hasDriversLicese = true;
+const hasGoodVersion = false;
+console.log(hasDriversLicese && hasGoodVersion);
+console.log(hasDriversLicese || hasGoodVersion);
+console.log(!hasDriversLicese);
 
+const shouldDrive = hasDriversLicese && hasGoodVersion
 
+const isTired = true;
+console.log('triple: ' + hasDriversLicese || hasGoodVersion || isTired);
 
+if (shouldDrive && !isTired) {
+    console.log('Sarah is able to drive!');
+} else {
+    console.log('Sorry, not capiable');
+}
 
+// switch
+const day = 'monday';
+switch (day) {
+    case 'monday':
+        console.log('Plan course structure');
+        console.log('Go to coding meetup');
+        break;
+    case 'tuesday':
+        console.log('Prepare throry videos');
+        break;
+    case 'wednesday':
+        console.log('take a break');
+        break;
+    case 'thursday':
+        console.log('write code examples');
+        break;
+    case 'tuesday':
+        console.log('record videos');
+        break;
+    default:
+        console.log('Not a valid day!');
+}
 
+// conditional ternary operator 02027
+const age4 = 26;
+age4 >= 18 ? console.log('Im allowed to drink wine.') : console.log('i can only drink water.')
 
+const drink = age4 >= 30 ? 'drink wine' : 'drink water';
+console.log(drink);
 
+console.log(`I would love to drink ${age4 >= 18 ? 'wine' : 'water'}.`);
 
-
-
-
-
+// section3
 
 
 
