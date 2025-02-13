@@ -103,5 +103,62 @@ checkWinner(scoreDolphins, scoreKoalas);
 
 
 // Arrays 03010
+const friends = ['Michael', 'Steven', 'Peter'];
+console.log(friends, friends[0]);
 
+const years = new Array(1991, 1999, 2004, 2023);
+console.log(years);
+
+console.log(years.length);
+console.log(years[years.length - 1]);
+
+friends[2] = 'jay';
+console.log(friends);
+
+// can hold different values
+const steven = ['Steven', 'Bemmmgr', '26', 'student', friends];
+console.log(steven);
+console.log(steven.length);
+
+// practice
+const calcAge4 = function (nowYear, birthYear) {
+    return nowYear - birthYear;
+}
+const y = new Array(1991, 1999, 2004, 2023);
+const ages = [calcAge4(2026, y[0]), calcAge4(2026, y[y.length - 1])];
+console.log(ages)
+
+// Array Methods 03011
+const newLength = friends.push('Bemmgr')
+console.log(friends);           //[ "Michael", "Steven", "jay", "Bemmgr" ]
+console.log(newLength);         //4
+
+// add elements in the beginning
+const newLength2 = friends.unshift('Tom', 'Jason');
+console.log(newLength2, friends);           // 6    [ "Tom", "Jason", "Michael", "Steven", "jay", "Bemmgr" ]
+
+// remove elements
+const popout = friends.pop();
+console.log(popout);            // Bemmgr
+console.log(friends);           //  [ "Tom", "Jason", "Michael", "Steven", "jay"]
+
+// remove elements from beginning
+friends.shift();
+console.log(friends);
+
+console.log(friends.indexOf('Steven'));     // 2
+console.log(friends.includes('Tom'));       // false
+
+
+// Challenge #2 03013
+const calcTip = function (bill) {
+    return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+}
+
+const bill = [125, 55, 44];
+const tip = [calcTip(bill[0]), calcTip(bill[1]), calcTip(bill[2])];
+console.log(bill, tip);
+
+
+// Objects 03014
 
