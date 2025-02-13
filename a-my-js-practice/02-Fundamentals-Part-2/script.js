@@ -160,5 +160,87 @@ const tip = [calcTip(bill[0]), calcTip(bill[1]), calcTip(bill[2])];
 console.log(bill, tip);
 
 
-// Objects 03014
+// Objects 03014 key - value pairs
+const bemmmgr = {
+    firstName: 'Xiangyu',
+    lastName: 'Li',
+    age: 26,
+    job: 'student',
+    friends: ['Machael', 'Steven', 'Josh']
+};
+console.log(bemmmgr);
+
+// 2 ways of expression  : dot notation / brackets notation
+console.log(bemmmgr.age);
+console.log(bemmmgr['age']);
+
+const nameKey = 'Name';
+console.log(bemmmgr['first' + nameKey]);
+console.log(bemmmgr['last' + nameKey]);
+
+// example
+/*
+const interestedIn = prompt('In which aspect u want to know about Bemmmgr? Choose between firstname, lastname, age, job and friends!');
+if (bemmmgr[interestedIn]) {
+    console.log(bemmmgr[interestedIn]);
+} else {
+    console.log('wrong request!');
+}
+*/
+
+bemmmgr.location = 'the Neitherland';
+bemmmgr['socialMedia'] = '@bemmmGr_';
+console.log(bemmmgr);
+
+// challenge;
+console.log(`${bemmmgr.firstName} has ${bemmmgr.friends.length} friends, and his best friends is called ${bemmmgr.friends[0]}`);
+
+
+// 03016 Object methods
+const bemmmgrNew = {
+    firstName: 'Xiangyu',
+    lastName: 'Li',
+    birthYear: 1999,
+    job: 'student',
+    friends: ['Machael', 'Steven', 'Josh'],
+    hasDriversLicense: false,
+    // function value
+    /*
+    calcAgeNew: function (birthYear, nowYear) {
+        return nowYear - birthYear;
+    }
+    */
+
+    /*
+    calcAgeNew: function (nowYear) {
+        console.log(this);
+        return nowYear - this.birthYear;
+    }
+    */
+    calcAgeNew: function (nowYear) {
+        this.ageNew = nowYear - this.birthYear;
+        return this.ageNew;
+    },
+
+    // challenge part
+    getSummary: function () {
+        return `${this.firstName} is a ${this.calcAgeNew(2028)} year old ${this.job}, who has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`
+    }
+
+
+};
+
+//console.log(bemmmgrNew['calcAgeNew'](1999, 2030));
+//console.log(bemmmgrNew.calcAgeNew(2025));
+console.log(bemmmgrNew.calcAgeNew(2027));
+// calcAgeNew(2027) calculate once, and outcome can be reused
+console.log(bemmmgrNew.ageNew);
+
+// Challenge
+console.log(bemmmgrNew.getSummary());
+
+
+
+
+
 
