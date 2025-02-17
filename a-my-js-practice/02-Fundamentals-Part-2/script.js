@@ -116,7 +116,7 @@ friends[2] = 'jay';
 console.log(friends);
 
 // can hold different values
-const steven = ['Steven', 'Bemmmgr', '26', 'student', friends];
+const steven = ['Steven', 'Bemmmgr', 26, 'student', friends];
 console.log(steven);
 console.log(steven.length);
 
@@ -226,8 +226,6 @@ const bemmmgrNew = {
     getSummary: function () {
         return `${this.firstName} is a ${this.calcAgeNew(2028)} year old ${this.job}, who has ${this.hasDriversLicense ? 'a' : 'no'} driver's license.`
     }
-
-
 };
 
 //console.log(bemmmgrNew['calcAgeNew'](1999, 2030));
@@ -240,7 +238,95 @@ console.log(bemmmgrNew.ageNew);
 console.log(bemmmgrNew.getSummary());
 
 
+// Challenge solution
+const Mark = {
+    fullName: 'Mark Miler',
+    mass: 78,
+    height: 169,
+    calcBMI: function () {
+        this.bmi = this.mass / (this.height ** 2);
+        return this.bmi;
+    }
+}
+console.log('marks bmi is:' + Mark.calcBMI());
 
 
+// 03019 - Iteration the for loop
+// for (let rep = 1; rep <= 10; rep++) {
+//     console.log(`Lifting weights ${rep}`);
+// }
 
+const types = [];
+for (let i = 0; i < steven.length; i++) {
+    // cannot loop Object: Mark
+    if (typeof steven[i] !== 'string') continue;
+    console.log(steven[i], typeof steven[i]);
 
+    types.push(typeof steven[i]);
+}
+
+// steven.forEach(item => console.log(item));
+console.log('types:' + types);
+
+//const years = new Array(1991, 1999, 2004, 2023);
+const age2 = [];
+for (let i = 0; i < years.length; i++) {
+    age2.push(2037 - years[i]);
+}
+console.log(age2);
+
+// 03021 Loop backwards & loop in loops
+console.log(steven);
+for (let i = steven.length - 1; i >= 0; i--) {
+    console.log(i, steven[i]);
+}
+
+/*
+for (let exercise = 1; exercise < 4; exercise++) {
+    console.log(`---Start exercise ${exercise}---`);
+    for (let rep = 1; rep < 6; rep++) {
+        console.log(`Lifting weights ${rep}`);
+    }
+}
+*/
+
+// 03022 while loop
+let rep = 1;
+while (rep <= 3) {
+    console.log(`Lifting weights ${rep}`);
+    rep++;
+}
+
+let dice = Math.trunc(Math.random() * 6 + 1);
+while (dice !== 6) {
+    console.log(`u rolled a ${dice}`);
+    dice = Math.trunc(Math.random() * 6 + 1);
+
+    if (dice === 6)
+        console.log('loop is about to end..');
+}
+
+// 03024 challenge
+const calcTip2 = function (bill) {
+    return bill >= 50 && bill <= 300 ? bill * 0.15 : bill * 0.2;
+}
+const bill2 = [22, 295, 176, 440, 37, 105, 10, 765, 86, 117];
+const tips2 = [];
+const total2 = [];
+
+for (let i = 0; i < bill2.length; i++) {
+    const tip = calcTip2(bill2[i]);
+    tips2.push(tip);
+    total2.push(tip + bill2[i]);
+}
+console.log(bill2, tips2, total2);
+
+const calcAverage2 = function (arr) {
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum = sum + arr[i];
+    }
+    return sum / arr.length;
+}
+console.log(calcAverage2(tips2));
+console.log(calcAverage2(total2));
