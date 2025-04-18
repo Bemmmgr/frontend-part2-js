@@ -147,3 +147,14 @@ const addExpr2 = function (a, b) {
 addExpr2(2, 5);     // Arguments { 0: 2, 1: 5, … } only exist in regular functions
 
 
+// 08013 primitive基本数据类型
+const me1 = {
+    name: steven,
+    age: 26,
+}
+const friend = me1;
+friend.age = 25;
+console.log(me1);
+console.log(friend);    // both 25
+
+// practice
