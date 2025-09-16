@@ -249,3 +249,77 @@ document.querySelector('.poll').addEventListener('click', poll.registerNewAnswer
 
 // manually set this keywords point to what we want(new array)
 poll.displayResults.call({ answers: [5, 2, 3]}, 'string');
+
+
+// 10011 - Immediately Invoked Function Expressions - 即刻调用的函数表达式
+const runOnce = function () {
+    console.log('This will never run again');
+}
+runOnce();
+
+// IIFE - intance
+(function () {
+    console.log('This will never run again');
+    const isPrivate = 23;
+}) ();
+
+(() => console.log('This will ALSO never run again')) ();
+
+{
+    const isPrivate2 = 34;
+    var notPrivate = 45;
+}
+// console.log(isPrivate);
+console.log(notPrivate);        // 45
+
+// 10012 - closures 闭包
+// 一个函数 + 这个函数能够访问的“词法作用域（lexical scope）”的组合
+const secureBooking = function () {
+    let passengerCount = 0;
+
+    return function () {
+        passengerCount++;
+        console.log(`passenger: ${passengerCount}`);
+    }
+}
+
+const booker = secureBooking();
+booker();
+
+// check func
+console.dir(booker);
+
+// 10013 - more closure
+const boardPassengers = function (n, wait) {
+    const perGroup = n / 3;
+
+    setTimeout(function () {
+        console.log(`We are all noarding all ${n} passengers`);         // 后
+        console.log(`There are 3 groups, each with ${perGroup} passengers`);
+    }, wait * 1000)
+
+    console.log(`Will start wait in ${wait} seconds`);      // 先
+}
+// closure have priority over scopechain
+boardPassengers(180, 3);
+
+
+// 10014 - Coding Challenge #2
+/* 
+This is more of a thinking challenge than a coding challenge 🤓
+
+Take the IIFE below and at the end of the function, attach an event listener that changes the color of the selected h1 element ('header') to blue, each time the BODY element is clicked. Do NOT select the h1 element again!
+
+And now explain to YOURSELF (or someone around you) WHY this worked! Take all the time you need. Think about WHEN exactly the callback function is executed, and what that means for the variables involved in this example.
+
+GOOD LUCK 😀
+*/
+
+(function () {
+    const header = document.querySelector('h1');
+    header.style.color = 'red';
+
+    document.querySelector('body').addEventListener('click', function() {
+        header.style.color = 'blue';
+    })
+}) ();
