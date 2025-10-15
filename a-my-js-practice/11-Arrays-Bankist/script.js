@@ -62,10 +62,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // 11008 - creating DOM elements
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
 
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal'
 
     const html = `
@@ -213,6 +215,14 @@ btnClose.addEventListener('click', function(e) {
   inputCloseUsername.value = inputClosePin.value = '';
 })
 
+// 11024 - sort button
+// add state monitor
+let sorted = false
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -537,3 +547,81 @@ console.log(overallBalance);          // 17840
 // const overallBalance = accounts.map(acc => acc.movements).flat().reduce((acc, mov) => acc + mov, 0);
 const overallBalance = accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0);
 console.log(overallBalance);          // 17840
+
+
+// 11024 - sorting arrays
+const owners = ['Jonas', 'Adam', 'Martha'];
+console.log(owners.sort());               // A to Z, ['Adam', 'Jonas', 'Martha'], mutate original
+
+// numbers
+console.log(movements);                   // [200, 450, -400, 3000, -650, -130, 70, 1300]
+// console.log(movements.sort());            // [-130, -400, -650, 1300, 200, 3000, 450, 70] - convert to strings, then sorting
+/*
+movements.sort((a, b) => {
+  if (a > b) {
+    return 1;          // return > 0 - switch order
+  }
+  if (b > a) {
+    return -1;        // return < 0 - keep order
+  }
+})
+*/
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+
+// 11025 - creating and filling arrays
+const x = new Array(7);
+console.log(x);             // [empty × 7]
+console.log(x.fill(0).map(() => 1));          // [1, 1, 1, 1, 1, 1, 1]
+console.log(x.fill(2, 3, 5));                 // start from 3 to 5, [0, 0, 0, 2, 2, 0, 0]
+
+// array.from
+const y = Array.from({length: 7}, () => 1);
+console.log(y);                       // (7) [1, 1, 1, 1, 1, 1, 1]
+
+const z = Array.from({length: 7}, (current, index) => index + 1);
+console.log(z);                       // (7) [1, 2, 3, 4, 5, 6, 7]
+
+labelBalance.addEventListener('click', function (e) {
+  const movmentsUI = Array.from(document.querySelectorAll('.movements__value'));
+  console.log(movmentsUI.map(elements => Number(elements.textContent.replace('EUR', ''))));       // ['1300', '70', '-130', '-650', '3000', '-400', '450', '200']
+});
+
+// 11027 - Array method practice
+// 1.
+const bankDepositSum = accounts.flatMap(acc => acc.movements).filter(mov => mov > 0).reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSum);                  // 25180
+
+// 2.
+const numDeposits1000 = accounts.flatMap(acc => acc.movements).filter(mov => mov >= 1000).length;
+console.log(numDeposits1000);         // 6
+// different way
+// const numDeposits02 = accounts.flatMap(acc => acc.movements).reduce((count, current) => (current >= 1000 ? count + 1 : count), 0);
+const numDeposits02 = accounts.flatMap(acc => acc.movements).reduce((count, current) => (current >= 1000 ? ++count : count), 0);
+console.log(numDeposits02);
+
+// 3.
+const sums = accounts.flatMap(acc => acc.movements).reduce((sums, cur) => {
+  // cur > 0 ? sums.deposits += cur : sums.withdrawals += cur;
+  sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
+  return sums;            // 必须
+}, {deposits: 0, withdrawals: 0})
+console.log(sums);                  // {deposits: 25180, withdrawals: -7340}
+
+// 4.
+// this is a nice title -> This Is a Nice Title
+const convertTitleCase = function (title) {
+  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'in', 'the'];
+  const capitzalize = str => str[0].toUpperCase() + str.slice(1);
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => exceptions.includes(word) ? word : capitzalize(word))
+    .join(' ');
+
+  return capitzalize(titleCase);
+}
+console.log(convertTitleCase('this is a nice title'));
+
+// challenge #4 11028 skipped
