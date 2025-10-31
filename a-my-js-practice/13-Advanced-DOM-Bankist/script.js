@@ -165,6 +165,7 @@ btnScrollTo.addEventListener('click', function (e) {
 });
 
 // 13008 - Types of event & event handlers
+/*
 const h1 = document.querySelector('h1');
 
 // mouseenter - hover
@@ -177,6 +178,7 @@ const alertH1 = function (e) {
 h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
+*/
 
 // old ways
 /*
@@ -192,12 +194,100 @@ h1.onmouseenter = function (e) {
 // Theoretical course
 
 // 13010 - Event propagation in practice
+const randomInt = (min, max) => 
+  Math.floor(Math.random() * (max - min + 1) +min);
+const randomColor = () => 
+  `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+// console.log(randomColor());
 
+/*
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('LINK', e.target, e.currentTarget);
+  console.log(e.currentTarget === this);        // True
 
-// 13011 - Implement smooth scrolling
-// 13012 - Implement smooth scrolling
-// 13013 - Implement smooth scrolling
-// 13014 - Implement smooth scrolling
+  // stop propagation
+  // e.stopPropagation();    // event不会被父一级listener捕捉
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('Container', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('Nav', e.target, e.currentTarget);
+}, true);         // true -- eventListener no longer listen to bubbling event but capturing event
+*/
+
+// 13011 - Event delegation Implementing page navigation
+/*
+document.querySelectorAll('.nav__link').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = this.getAttribute('href');
+    console.log(id);          // #section--n
+
+    document.querySelector(id).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+*/
+
+// event delegation - 事件委托
+// 1. Add event to common parent element
+// 2. Determine what element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  // console.log(e.target);
+  e.preventDefault();
+
+  // matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    // console.log(id);          // #section--n
+    document.querySelector(id).scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+})
+
+// 13012 - DOM traversing
+/*
+const h1 = document.querySelector('h1');
+
+// going downwards: child
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);           // NodeList(9)
+console.log(h1.children);             // HTMLCollection(3)
+
+h1.firstElementChild.style.color = 'white';
+h1.lastElementChild.style.color = 'orangered';
+
+// going upwards: parents
+console.log(h1.parentNode);
+console.log(h1.parentElement);
+
+h1.closest('.header').style.background = 'var(--gradient-secondary)';
+h1.closest('h1').style.background = 'var(--gradient-primary)';
+
+// going sideways: siblings - direct
+console.log(h1.previousElementSibling);       // null
+console.log(h1.nextElementSibling);           // <h4>
+
+console.log(h1.previousSibling);              // #text
+console.log(h1.nextSibling);                  // #text
+
+console.log(h1.parentElement.children);     // all Siblings - include itself
+[...h1.parentElement.children].forEach(function (el) {
+  if(el !== h1) el.style.transform = 'scale(0.5)'
+})
+*/
+
+// 13013 - Building a tabbed component
+// 13014 - Passing  Arguments to event handlers
 // 13015 -
 // 13016 -
 // 13017 -
