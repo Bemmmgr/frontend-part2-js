@@ -224,6 +224,7 @@ PersonCl.hey();
 
 // 14013 - Object create
 // munually set the prototype of an object to any other object we want
+/*
 const PersonProto = {
     calcAge() {
         console.log(2025 - this.birthYear);
@@ -234,8 +235,10 @@ const PersonProto = {
         this.birthYear = birthYear;
     },
 };
+*/
 
 // dont need to creat
+/*
 const bemmgr = Object.create(PersonProto);
 console.log(bemmgr);
 bemmgr.name = 'Bemmgr';
@@ -247,6 +250,7 @@ console.log(bemmgr.__proto__ === PersonProto);          // true
 const sarah = Object.create(PersonProto);
 sarah.init('Sarah', 1985);
 sarah.calcAge();                    // 40
+*/
 
 // 14014 - coding challenge #2
 /* 
@@ -397,3 +401,120 @@ console.log(martha);
 
 martha.introduce();
 martha.calcAge();       // 22
+
+// 14018 - Inheritance between classes Object.creat()
+const PersonProto = {
+    calcAge() {
+        console.log(2025 - this.birthYear);
+    },
+
+    init(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    },
+};
+
+const bemmgr2 = Object.create(PersonProto);
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+    PersonProto.init.call(this, firstName, birthYear);
+    this.course = course;
+}
+
+StudentProto.introduce = function () {
+    console.log(`My name is ${this.firstName}, and I learn ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+jay.init('Jay', 2004, 'Physics');
+jay.introduce();
+jay.calcAge();
+
+// 14019 - another class example
+class Account {
+    // public fields (instances)
+    locale = navigator.language;
+
+    //private fields (instances)
+    #movements = [];                  // Cannot read properties of undefined
+    #pin;
+
+    constructor(owner, currency, pin) {
+        this.owner = owner;
+        this.currency = currency;
+
+        // protected property
+        this.#pin = pin;
+        // this._movements = [];
+        // this.locale = navigator.language;
+
+        console.log(`Thank you for opening an account, ${owner}!`);
+    };
+
+    // public interface - public methods
+    getMovements() {
+        return this.#movements;
+    };
+
+    deposit(val) {
+        this.#movements.push(val);
+        return this;
+    };
+
+    withdrawl(val) {
+        this.deposit(-val);
+        return this;
+    };
+
+    requestLoan(val) {
+        if (this._approveLoan(val)) {
+            this.deposit(val);
+            console.log('Loan approved!');
+            return this;
+        }
+    };
+
+    // private methods
+    // not support by any browser
+    // #approveLoan() {
+    _approveLoan() {
+        return true;
+    };
+};
+
+const acc1 = new Account('Jonas', 'Eur', 1111);
+console.log(acc1);
+
+/*
+acc1._movements.push(220);
+acc1._movements.push(-120);
+*/
+acc1.deposit(80);
+acc1.withdrawl(50);
+acc1.requestLoan(100);
+acc1._approveLoan(100);
+console.log(acc1.getMovements());           // [80, -50, 100]
+
+console.log(acc1);
+console.log(acc1._pin);
+
+// 14020 - Encapsulation protected properties and methods 封装
+// fake Encapsulation - use _
+
+// 14021 - Encapsulation private class fields and methods
+// 1) Public fields
+// 2) Private fields
+// 3) Public methods
+// 4) Private methods
+// STATIC version of these 4
+
+// console.log(acc1.#movements);
+// console.log(acc1.#pin);
+// console.log(acc1.#approveLoan());
+
+// 14022 - chaining methods - first return this on every method
+acc1.deposit(200).deposit(200).withdrawl(180).requestLoan(1000).withdrawl(800);
+console.log(acc1.getMovements());           // (8) [80, -50, 100, 200, 200, -180, 1000, -800]
+
+// 14023 - classes summary
+// all concepts wrap up
